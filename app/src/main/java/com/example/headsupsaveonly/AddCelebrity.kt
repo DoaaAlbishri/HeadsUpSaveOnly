@@ -29,28 +29,32 @@ class AddCelebrity : AppCompatActivity() {
             startActivity(intent)
         }
         btAdd.setOnClickListener {
-            var user = CelebrityDetails.Celebrity(
-                name.text.toString(),
-                taboo1.text.toString(),
-                taboo2.text.toString(),
-                taboo3.text.toString(),
-                Random.nextInt(0, 200)
-            )
-            //db
-            var s1 = name.text.toString()
-            var s2 = taboo1.text.toString()
-            var s3 = taboo2.text.toString()
-            var s4 = taboo3.text.toString()
-            var dbhlr = DBHlr(this)
-            dbhlr.savedata(s1,s2,s3,s4)
-            Toast.makeText(this, "Celebrity Added", Toast.LENGTH_SHORT).show()
+            if(name.text.isEmpty()||taboo1.text.isEmpty()||taboo2.text.isEmpty()||taboo3.text.isEmpty())
+                Toast.makeText(this, "Fill all fields please", Toast.LENGTH_SHORT).show()
+            else {
+                var user = CelebrityDetails.Celebrity(
+                        name.text.toString(),
+                        taboo1.text.toString(),
+                        taboo2.text.toString(),
+                        taboo3.text.toString(),
+                        Random.nextInt(0, 200)
+                )
+                //db
+                var s1 = name.text.toString()
+                var s2 = taboo1.text.toString()
+                var s3 = taboo2.text.toString()
+                var s4 = taboo3.text.toString()
+                var dbhlr = DBHlr(this)
+                dbhlr.savedata(s1, s2, s3, s4)
+                Toast.makeText(this, "Celebrity Added", Toast.LENGTH_SHORT).show()
 
-            addUserdata(user, onResult = {
-                name.setText("")
-                taboo1.setText("")
-                taboo2.setText("")
-                taboo3.setText("")
-            })
+                addUserdata(user, onResult = {
+                    name.setText("")
+                    taboo1.setText("")
+                    taboo2.setText("")
+                    taboo3.setText("")
+                })
+            }
         }
     }
 
